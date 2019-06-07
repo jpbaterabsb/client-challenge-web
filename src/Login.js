@@ -3,7 +3,7 @@ import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import './login.css'
 import { authenticationService } from "./service";
 
-export class Login extends React.Component {
+class Login extends React.Component {
 
   constructor(props) {
     super(props);
@@ -71,8 +71,6 @@ export class Login extends React.Component {
           </Form>
           </div>
           <div className="col-md-4"></div>
-          
-
         </div>
       </div>
     );

@@ -1,15 +1,7 @@
-import React from 'react';
-import axios from "axios";
-
-import { authenticationService } from './service';
-import { Layout, Menu, Breadcrumb, Icon } from 'antd';
-import { BrowserRouter, Route, Switch, Link } from "react-router-dom";
+import React, { Component } from 'react';
+import { Layout, Menu, Icon } from 'antd';
+import { Link } from "react-router-dom";
 import './Main.css';
-import WrappedRegistrationForm  from './client-registration';
-import ListaClient from './lista-client';
-
-
-
 const { SubMenu } = Menu;
 const { Header, Content, Sider, Footer } = Layout;
 
@@ -19,8 +11,6 @@ export class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = { collapsed: false };
-
-
   }
 
 
@@ -30,29 +20,26 @@ export class Main extends React.Component {
   };
 
 
+
   componentDidMount() {
+    console.log(this.props);
     // authenticationService.login("admin", "123456").then(token => );
   }
 
 
   render() {
-
     return (<Layout style={{ minHeight: '100vh' }}>
       <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse}>
         <div className="logo" />
         <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-          <Menu.Item key="1">
-            <Icon type="pie-chart" />
-            <span>Option 1</span>
-          </Menu.Item>
           <Menu.Item key="2" >
-              <Link to="client">
+              <Link to="/client">
               <Icon type="desktop" />
               <span>Cadastrar Cliente</span>
               </Link>
           </Menu.Item>
-          <Menu.Item key="2" >
-              <Link to="lista">
+          <Menu.Item key="3" >
+              <Link to="/lista">
               <span>Lista</span>
               </Link>
           </Menu.Item>
@@ -61,8 +48,7 @@ export class Main extends React.Component {
       <Layout>
         <Header style={{ background: '#fff', padding: 0 }} />
         <Content style={{ margin: '0 16px' }}>
-        <Route path="/client" component={WrappedRegistrationForm}/> 
-        <Route path="/lista" component={ListaClient}/> 
+          {this.props.children}
         </Content>
         <Footer style={{ textAlign: 'center' }}>Client Challenge ©2018 Created by Joao Paulo</Footer>
       </Layout>

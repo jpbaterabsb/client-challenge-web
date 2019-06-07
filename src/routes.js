@@ -1,8 +1,9 @@
 import React from "react";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Main from "./Main";
-import Login from "./Login";
+import WrappedNormalLoginForm from "./Login";
+import {Switch,Route,BrowserRouter, Redirect} from 'react-router-dom';
 import WrappedRegistrationForm from "./client-registration";
+import ListaClient from "./lista-client";
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
@@ -10,10 +11,12 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
     render={props =>
       localStorage.getItem('currentUser') !== null ? 
       (
-        <Component {...props} />
+        <Main {...props} >
+          <Component {...props} />
+          </Main>
       ): 
       (
-        <Redirect to={{ pathname: "/", state: { from: props.location } }} />
+        <Redirect to="/login" />
       )
     }
   />
@@ -21,11 +24,12 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 
 const Routes = () => (
   <BrowserRouter>
-    <Switch>
-      <Route exact path="/" component={Login} />
-      <PrivateRoute path="/" component={Main}/>
-      <Route path="*" component={() => <h1>Page not found</h1>} />
-    </Switch>
+  <Switch>
+    <Route exact path="/login" component={WrappedNormalLoginForm} />
+    <PrivateRoute path="/lista" key='lista' component={ListaClient}/>
+    <PrivateRoute path="/client" key='client' component={WrappedRegistrationForm}/>
+    <Route path="*" component={() => <h1>Page not found</h1>} />
+  </Switch>
   </BrowserRouter>
 );
 
